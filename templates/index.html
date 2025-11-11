@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction Kinetics Simulator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <h2>Reaction Rate Constants</h2>
+            <div class="slider-container">
+                <label for="k1">k₁ (rate constant A → B)</label>
+                <input type="range" id="k1" name="k1" min="0.001" max="1.0" value="0.1" step="0.01">
+                <span id="k1-value">0.100</span>
+            </div>
+            <div class="slider-container">
+                <label for="k2">k₂ (rate constant B → C)</label>
+                <input type="range" id="k2" name="k2" min="0.001" max="1.0" value="0.2" step="0.01">
+                <span id="k2-value">0.200</span>
+            </div>
+            <div class="info">
+                Adjust the rate constants k₁ and k₂ to see how they affect the concentration profiles of species A, B, and C over time.
+            </div>
+        </div>
+        <div class="main-content">
+            <h1>Consecutive Reaction: A → B → C</h1>
+            <div id="plot"></div>
+            <div class="metrics">
+                <div class="metric">
+                    <p>k₁ (A → B)</p>
+                    <h3 id="metric-k1">0.100 min⁻¹</h3>
+                </div>
+                <div class="metric">
+                    <p>k₂ (B → C)</p>
+                    <h3 id="metric-k2">0.200 min⁻¹</h3>
+                </div>
+                <div class="metric">
+                    <p>k₂/k₁ ratio</p>
+                    <h3 id="metric-ratio">2.00</h3>
+                </div>
+            </div>
+            <div class="explanation">
+                <details>
+                    <summary>About this simulation</summary>
+                    <p>This app simulates a consecutive reaction mechanism:</p>
+                    <p><strong>A → B → C</strong></p>
+                    <p>Where:</p>
+                    <ul>
+                        <li><strong>A</strong> is the starting reactant (green line)</li>
+                        <li><strong>B</strong> is an intermediate species (blue line)</li>
+                        <li><strong>C</strong> is the final product (red line)</li>
+                    </ul>
+                    <p>The concentration profiles are governed by:</p>
+                    <ul>
+                        <li><strong>k₁</strong>: Rate constant for conversion of A to B</li>
+                        <li><strong>k₂</strong>: Rate constant for conversion of B to C</li>
+                    </ul>
+                    <p><strong>Key observations:</strong></p>
+                    <ul>
+                        <li>When k₁ > k₂: B accumulates (slower second step)</li>
+                        <li>When k₁ < k₂: B forms and depletes quickly (faster second step)</li>
+                        <li>When k₁ ≈ k₂: Intermediate concentration profile for B</li>
+                    </ul>
+                </details>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
